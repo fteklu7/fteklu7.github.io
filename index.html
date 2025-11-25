@@ -1,0 +1,935 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Fetume Teklu | Portfolio</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="description" content="Portfolio website for Fetume Teklu, Computer Science student and aspiring software engineer." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #050816;
+      --bg-elevated: #0b1020;
+      --accent: #6366f1;
+      --accent-soft: rgba(99, 102, 241, 0.12);
+      --text-main: #f9fafb;
+      --text-muted: #9ca3af;
+      --border-subtle: rgba(148, 163, 184, 0.35);
+      --chip-bg: rgba(15,23,42,0.8);
+      --radius-lg: 18px;
+      --radius-xl: 24px;
+      --shadow-soft: 0 18px 45px rgba(15,23,42,0.85);
+      --shadow-subtle: 0 8px 25px rgba(15,23,42,0.65);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background: radial-gradient(circle at top, #111827 0, #020617 55%, #000 100%);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    /* Layout */
+    .page {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 0 1.25rem;
+    }
+
+    /* Nav */
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      backdrop-filter: blur(22px);
+      background: linear-gradient(to bottom, rgba(2,6,23,0.95), rgba(2,6,23,0.75), transparent);
+      border-bottom: 1px solid rgba(148,163,184,0.15);
+    }
+
+    .nav-inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.85rem 0;
+    }
+
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      font-size: 0.9rem;
+    }
+
+    .nav-logo-pill {
+      width: 26px;
+      height: 26px;
+      border-radius: 999px;
+      background: conic-gradient(from 210deg, #6366f1, #22c55e, #06b6d4, #6366f1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 22px rgba(129,140,248,0.9);
+      font-size: 0.9rem;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .nav-links a {
+      position: relative;
+      padding-bottom: 0.15rem;
+    }
+
+    .nav-links a::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      width: 0;
+      height: 2px;
+      border-radius: 999px;
+      background: linear-gradient(to right, #6366f1, #22c55e);
+      transition: width 0.22s ease-out;
+    }
+
+    .nav-links a:hover {
+      color: var(--text-main);
+    }
+
+    .nav-links a:hover::after {
+      width: 100%;
+    }
+
+    /* Hero */
+    .hero {
+      padding: 3.5rem 0 2.5rem;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 2.5fr);
+      gap: 2.75rem;
+      align-items: center;
+    }
+
+    .hero-eyebrow {
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.16em;
+      color: var(--accent);
+      margin-bottom: 0.65rem;
+    }
+
+    .hero-title {
+      font-size: clamp(2.1rem, 3vw, 2.75rem);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      margin-bottom: 0.75rem;
+    }
+
+    .hero-subtitle {
+      font-size: 1rem;
+      color: var(--text-muted);
+      max-width: 34rem;
+      margin-bottom: 1.4rem;
+    }
+
+    .hero-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.7rem;
+    }
+
+    .chip {
+      font-size: 0.78rem;
+      padding: 0.3rem 0.75rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.35);
+      background: linear-gradient(135deg, rgba(15,23,42,0.9), rgba(15,23,42,0.65));
+      backdrop-filter: blur(18px);
+      color: var(--text-muted);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.4rem;
+      white-space: nowrap;
+    }
+
+    .chip-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 999px;
+      background: #22c55e;
+      box-shadow: 0 0 10px rgba(34,197,94,0.8);
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.55rem 1.2rem;
+      border-radius: 999px;
+      font-size: 0.85rem;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform 0.15s ease-out, box-shadow 0.15s ease-out, background 0.15s ease-out, border-color 0.15s ease-out;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .btn-primary {
+      background: radial-gradient(circle at top left, #4f46e5, #1d4ed8);
+      color: #f9fafb;
+      box-shadow: 0 14px 40px rgba(79,70,229,0.75);
+      border-color: rgba(129,140,248,0.5);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 45px rgba(79,70,229,0.85);
+      background: radial-gradient(circle at top left, #6366f1, #1d4ed8);
+    }
+
+    .btn-ghost {
+      background: rgba(15,23,42,0.9);
+      border-color: rgba(148,163,184,0.55);
+      color: var(--text-muted);
+    }
+
+    .btn-ghost:hover {
+      background: rgba(15,23,42,1);
+      color: var(--text-main);
+      transform: translateY(-1px);
+      box-shadow: 0 10px 30px rgba(15,23,42,0.85);
+      border-color: rgba(148,163,184,0.9);
+    }
+
+    .btn-icon {
+      font-size: 1.05rem;
+      line-height: 0;
+    }
+
+    .hero-contact {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    .hero-contact a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-decoration-style: dotted;
+      text-underline-offset: 3px;
+    }
+
+    /* Hero card */
+    .hero-card {
+      border-radius: var(--radius-xl);
+      background: radial-gradient(circle at top left, rgba(99,102,241,0.22), rgba(15,23,42,0.98));
+      border: 1px solid rgba(148,163,184,0.4);
+      padding: 1.2rem 1.2rem 1.1rem;
+      box-shadow: var(--shadow-soft);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background-image:
+        radial-gradient(circle at 0% 0%, rgba(96,165,250,0.12) 0, transparent 55%),
+        radial-gradient(circle at 100% 100%, rgba(16,185,129,0.09) 0, transparent 55%);
+      opacity: 0.9;
+      pointer-events: none;
+    }
+
+    .hero-card-inner {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-card-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 0.8rem;
+    }
+
+    .hero-card-title {
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 0.18em;
+      color: var(--text-muted);
+    }
+
+    .hero-status-pill {
+      font-size: 0.75rem;
+      padding: 0.2rem 0.65rem;
+      border-radius: 999px;
+      border: 1px solid rgba(52,211,153,0.5);
+      background: rgba(6,95,70,0.75);
+      color: #bbf7d0;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+
+    .hero-status-pill span:first-child {
+      width: 7px;
+      height: 7px;
+      border-radius: 999px;
+      background: #4ade80;
+      box-shadow: 0 0 10px rgba(74,222,128,0.9);
+    }
+
+    .hero-highlight {
+      margin-bottom: 0.9rem;
+    }
+
+    .hero-highlight h3 {
+      font-size: 1.02rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .hero-highlight p {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+    }
+
+    .hero-kv {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 0.7rem;
+      margin-top: 0.5rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .hero-kv-item {
+      padding: 0.48rem 0.55rem;
+      border-radius: 14px;
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.85);
+      font-size: 0.75rem;
+    }
+
+    .hero-kv-label {
+      color: var(--text-muted);
+      margin-bottom: 0.1rem;
+    }
+
+    .hero-kv-value {
+      font-weight: 500;
+      font-size: 0.82rem;
+    }
+
+    .hero-mini-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.35rem;
+      margin-top: 0.6rem;
+    }
+
+    .hero-mini-skills span {
+      font-size: 0.72rem;
+      padding: 0.18rem 0.55rem;
+      border-radius: 999px;
+      border: 1px solid rgba(148,163,184,0.35);
+      background: rgba(15,23,42,0.9);
+    }
+
+    /* Sections */
+    section {
+      padding: 2.2rem 0;
+    }
+
+    .section-title {
+      font-size: 1.1rem;
+      margin-bottom: 0.4rem;
+    }
+
+    .section-subtitle {
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      margin-bottom: 1.3rem;
+    }
+
+    /* Skills */
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 1rem;
+    }
+
+    .card {
+      border-radius: var(--radius-lg);
+      padding: 1rem;
+      background: radial-gradient(circle at top, rgba(15,23,42,0.9), rgba(15,23,42,0.98));
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .card h3 {
+      font-size: 0.9rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .tag-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+    }
+
+    .tag {
+      font-size: 0.78rem;
+      padding: 0.24rem 0.6rem;
+      border-radius: 999px;
+      background: var(--chip-bg);
+      border: 1px solid rgba(148,163,184,0.5);
+      color: var(--text-muted);
+    }
+
+    /* Experience */
+    .experience-list {
+      display: flex;
+      flex-direction: column;
+      gap: 1.1rem;
+    }
+
+    .exp-item {
+      border-radius: var(--radius-lg);
+      padding: 0.9rem 1rem;
+      background: radial-gradient(circle at top left, rgba(15,23,42,0.98), rgba(15,23,42,0.96));
+      border: 1px solid rgba(148,163,184,0.4);
+      box-shadow: var(--shadow-subtle);
+    }
+
+    .exp-header {
+      display: flex;
+      justify-content: space-between;
+      gap: 1rem;
+      margin-bottom: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .exp-title {
+      font-size: 0.95rem;
+      font-weight: 600;
+    }
+
+    .exp-meta {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .exp-bullets {
+      list-style: disc;
+      padding-left: 1.1rem;
+      margin-top: 0.35rem;
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    .exp-bullets li + li {
+      margin-top: 0.18rem;
+    }
+
+    /* Projects */
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .project-item h3 {
+      font-size: 0.92rem;
+      margin-bottom: 0.25rem;
+    }
+
+    .project-tech {
+      font-size: 0.78rem;
+      color: var(--text-muted);
+      margin-bottom: 0.35rem;
+    }
+
+    .project-item p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    /* Activities */
+    .activity-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .activity-role {
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      margin-bottom: 0.25rem;
+    }
+
+    .activity-item p {
+      font-size: 0.86rem;
+      color: var(--text-muted);
+    }
+
+    /* Footer */
+    footer {
+      padding: 1.5rem 0 2rem;
+      font-size: 0.82rem;
+      color: var(--text-muted);
+      border-top: 1px solid rgba(15,23,42,0.8);
+      margin-top: 1rem;
+    }
+
+    footer .footer-inner {
+      display: flex;
+      flex-direction: column;
+      gap: 0.4rem;
+    }
+
+    footer a {
+      color: var(--accent);
+      text-decoration: underline;
+      text-underline-offset: 3px;
+    }
+
+    /* Back to top */
+    .back-to-top {
+      position: fixed;
+      right: 1.4rem;
+      bottom: 1.4rem;
+      width: 38px;
+      height: 38px;
+      border-radius: 999px;
+      background: rgba(15,23,42,0.96);
+      border: 1px solid rgba(148,163,184,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      color: var(--text-muted);
+      cursor: pointer;
+      box-shadow: 0 12px 30px rgba(15,23,42,0.85);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.18s ease-out, transform 0.18s ease-out;
+      z-index: 40;
+    }
+
+    .back-to-top.visible {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+    }
+
+    .back-to-top:hover {
+      color: var(--text-main);
+      transform: translateY(-2px);
+      border-color: var(--accent);
+    }
+
+    /* Responsive */
+    @media (max-width: 900px) {
+      .hero-grid {
+        grid-template-columns: minmax(0, 1fr);
+      }
+
+      .hero-card {
+        order: -1;
+      }
+
+      .nav-inner {
+        gap: 0.75rem;
+      }
+
+      .nav-links {
+        display: none; /* hide on small screens to keep it simple */
+      }
+    }
+
+    @media (max-width: 600px) {
+      .hero {
+        padding-top: 2.6rem;
+      }
+
+      section {
+        padding: 1.8rem 0;
+      }
+
+      .hero-actions {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <!-- NAV -->
+    <header class="nav">
+      <div class="container nav-inner">
+        <div class="nav-logo">
+          <div class="nav-logo-pill">F</div>
+          <span>Fetume Teklu</span>
+        </div>
+        <nav class="nav-links">
+          <a href="#about">About</a>
+          <a href="#skills">Skills</a>
+          <a href="#experience">Experience</a>
+          <a href="#projects">Projects</a>
+          <a href="#activities">Leadership</a>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <!-- HERO -->
+      <section class="hero" id="about">
+        <div class="container hero-grid">
+          <div>
+            <div class="hero-eyebrow">Computer Science @ Purdue</div>
+            <h1 class="hero-title">Hi, I'm Fetume Teklu.</h1>
+            <p class="hero-subtitle">
+              I'm a Computer Science student interested in software engineering, AI-powered tools, and building
+              products that make complex workflows easier for real people—whether that's pilots, staff, or students.
+            </p>
+
+            <div class="hero-tags">
+              <div class="chip">
+                <span class="chip-dot"></span>
+                Open to SWE &amp; IT internships
+              </div>
+              <div class="chip">AI chatbots &amp; full-stack apps</div>
+              <div class="chip">Web development mentoring</div>
+            </div>
+
+            <div class="hero-actions">
+              <a class="btn btn-primary" href="mailto:fetume2127@gmail.com">
+                <span class="btn-icon">✉️</span>
+                Contact me
+              </a>
+              <a class="btn btn-ghost" href="https://linkedin.com/in/fetume-teklu" target="_blank" rel="noreferrer">
+                <span class="btn-icon">↗</span>
+                View my LinkedIn
+              </a>
+            </div>
+
+            <div class="hero-contact">
+              Based in Indiana • Reach me at
+              <a href="mailto:fetume2127@gmail.com">fetume2127@gmail.com</a>
+            </div>
+          </div>
+
+          <aside class="hero-card">
+            <div class="hero-card-inner">
+              <div class="hero-card-header">
+                <div class="hero-card-title">At a glance</div>
+                <div class="hero-status-pill">
+                  <span></span><span>Actively growing</span>
+                </div>
+              </div>
+
+              <div class="hero-highlight">
+                <h3>CS student &amp; builder</h3>
+                <p>
+                  I combine IT experience, AI research, and web development to ship projects like an AI aviation
+                  assistant, a sports betting tool, and a restaurant management platform.
+                </p>
+              </div>
+
+              <div class="hero-kv">
+                <div class="hero-kv-item">
+                  <div class="hero-kv-label">Degree</div>
+                  <div class="hero-kv-value">B.S. Computer Science</div>
+                </div>
+                <div class="hero-kv-item">
+                  <div class="hero-kv-label">School</div>
+                  <div class="hero-kv-value">Purdue University</div>
+                </div>
+                <div class="hero-kv-item">
+                  <div class="hero-kv-label">Grad Date</div>
+                  <div class="hero-kv-value">Dec 2026</div>
+                </div>
+              </div>
+
+              <div class="hero-mini-skills">
+                <span>Python</span>
+                <span>React</span>
+                <span>Node.js</span>
+                <span>SQL &amp; MongoDB</span>
+                <span>HTML/CSS/JS</span>
+              </div>
+            </div>
+          </aside>
+        </div>
+      </section>
+
+      <!-- SKILLS -->
+      <section id="skills">
+        <div class="container">
+          <h2 class="section-title">Technical Skills</h2>
+          <p class="section-subtitle">
+            A mix of programming languages, core CS concepts, and tools I've used across internships, projects, and coursework.
+          </p>
+
+          <div class="skills-grid">
+            <div class="card">
+              <h3>Languages</h3>
+              <div class="tag-list">
+                <span class="tag">Python</span>
+                <span class="tag">C++</span>
+                <span class="tag">Java</span>
+                <span class="tag">JavaScript</span>
+                <span class="tag">TypeScript</span>
+                <span class="tag">SQL</span>
+                <span class="tag">HTML/CSS</span>
+                <span class="tag">R</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Concepts</h3>
+              <div class="tag-list">
+                <span class="tag">Data Structures &amp; Algorithms</span>
+                <span class="tag">OOP</span>
+                <span class="tag">Database Concepts</span>
+                <span class="tag">Machine Learning (intro)</span>
+                <span class="tag">UML Diagramming</span>
+                <span class="tag">Data Analysis</span>
+              </div>
+            </div>
+
+            <div class="card">
+              <h3>Technologies</h3>
+              <div class="tag-list">
+                <span class="tag">React</span>
+                <span class="tag">Node.js</span>
+                <span class="tag">Express</span>
+                <span class="tag">MySQL</span>
+                <span class="tag">MongoDB</span>
+                <span class="tag">Git</span>
+                <span class="tag">PowerShell</span>
+                <span class="tag">AWS</span>
+                <span class="tag">Firebase</span>
+                <span class="tag">Jupyter</span>
+                <span class="tag">IAM</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- EXPERIENCE -->
+      <section id="experience">
+        <div class="container">
+          <h2 class="section-title">Experience</h2>
+          <p class="section-subtitle">
+            Recent roles where I've supported teams, shipped tools, and mentored others while building my technical foundation.
+          </p>
+
+          <div class="experience-list">
+            <article class="exp-item">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-title">IT Engineering Intern — Indiana Economic Development Corporation</div>
+                </div>
+                <div class="exp-meta">May 2025 – Aug 2025</div>
+              </div>
+              <ul class="exp-bullets">
+                <li>
+                  Provided hands-on <strong>Tier 1 IT support</strong> for desktops, VPN access, software installs, and network issues, helping staff resolve problems quickly and keeping operations running smoothly.
+                </li>
+                <li>
+                  Cleaned and reorganized <strong>Dynamics 365 data</strong> while documenting updated processes, improving reporting accuracy by <strong>20%</strong> across internal teams.
+                </li>
+                <li>
+                  Created automated <strong>Excel dashboards and scripts</strong> that reduced repetitive reporting tasks by <strong>15%</strong> and made weekly performance data easier for leadership to interpret.
+                </li>
+              </ul>
+            </article>
+
+            <article class="exp-item">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-title">Software Research Intern — V2X Engineering</div>
+                </div>
+                <div class="exp-meta">Aug 2024 – May 2025</div>
+              </div>
+              <ul class="exp-bullets">
+                <li>
+                  Worked with engineers to modernize how pilots access aircraft procedures by building an <strong>AI-powered natural language search tool</strong> that replaced slow, manual document lookups.
+                </li>
+                <li>
+                  Developed a <strong>full-stack AI chatbot</strong> using React, Python, LLM APIs, and vector search, allowing pilots to quickly pull information from <strong>200+ aviation manuals</strong> with accurate, cited responses.
+                </li>
+                <li>
+                  Improved indexing and retrieval pipelines, increasing search speed by <strong>85%</strong> and making the system more reliable during high-pressure use cases.
+                </li>
+              </ul>
+            </article>
+
+            <article class="exp-item">
+              <div class="exp-header">
+                <div>
+                  <div class="exp-title">Web Design Teaching Assistant — IUPUI</div>
+                </div>
+                <div class="exp-meta">Jan 2024 – May 2024</div>
+              </div>
+              <ul class="exp-bullets">
+                <li>
+                  Mentored <strong>30+ students</strong> as they built responsive websites using <strong>HTML, CSS, and JavaScript</strong>, helping them understand core web development concepts through hands-on debugging.
+                </li>
+                <li>
+                  Supported students with <strong>project planning, code reviews</strong>, and deployments using GitHub Pages, VS Code, and CodePen, guiding them from initial idea to final project.
+                </li>
+                <li>
+                  Encouraged clean coding practices, thoughtful UI/UX decisions, and proper version control workflows, leading to noticeably stronger project quality across the class.
+                </li>
+              </ul>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- PROJECTS -->
+      <section id="projects">
+        <div class="container">
+          <h2 class="section-title">Projects</h2>
+          <p class="section-subtitle">
+            A few things I've built to practice full-stack development, data handling, and real-world problem solving.
+          </p>
+
+          <div class="projects-grid">
+            <article class="card project-item">
+              <h3>BetSmart</h3>
+              <div class="project-tech">React · Node.js · FastAPI · Docker · The Odds API</div>
+              <p>
+                Built a <strong>full-stack parlay calculator</strong> that processes real-time odds for NFL, NBA, and MLB games with an interactive React interface. A FastAPI backend refreshes odds every 5 minutes and handles 100+ monthly API calls with robust error handling.
+              </p>
+            </article>
+
+            <article class="card project-item">
+              <h3>Ethiopian Restaurant Management Platform</h3>
+              <div class="project-tech">HTML · CSS · JavaScript · Node.js · Express · MongoDB</div>
+              <p>
+                Developed a responsive <strong>restaurant management platform</strong> with interactive menus, reservation booking, and contact management. Implemented a RESTful Node.js/Express API with MongoDB for persistent menu and reservation data.
+              </p>
+            </article>
+
+            <article class="card project-item">
+              <h3>Personal Finance Tracker</h3>
+              <div class="project-tech">Python · SQLite · Matplotlib</div>
+              <p>
+                Created a personal finance dashboard to monitor income, expenses, and monthly spending trends. Added <strong>budget alerts</strong>, categorized expenses, and secure <strong>hashed password authentication</strong> to protect user data.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <!-- ACTIVITIES -->
+      <section id="activities">
+        <div class="container">
+          <h2 class="section-title">Activities &amp; Leadership</h2>
+          <p class="section-subtitle">
+            Community and cultural involvement that keeps me grounded and connected.
+          </p>
+
+          <div class="activity-list">
+            <article class="card activity-item">
+              <h3>Ethiopian Eritrean Student Association (EESA)</h3>
+              <div class="activity-role">Event Coordinator · Aug 2023 – Dec 2023</div>
+              <p>
+                Planned and coordinated <strong>5+ cultural events</strong>, helping increase student engagement by <strong>25%</strong> and creating spaces for East African students to connect and share their culture.
+              </p>
+            </article>
+
+            <article class="card activity-item">
+              <h3>East African Student Association (EASA)</h3>
+              <div class="activity-role">Risk Manager · Jan 2025 – May 2025</div>
+              <p>
+                Helped organize campus-wide cultural showcases attended by <strong>100+ students</strong>, supporting event logistics and creating a welcoming environment for attendees.
+              </p>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="container footer-inner">
+        <div>© <span id="year"></span> Fetume Teklu. All rights reserved.</div>
+        <div>
+          Connect with me on
+          <a href="https://linkedin.com/in/fetume-teklu" target="_blank" rel="noreferrer">LinkedIn</a>
+          or email
+          <a href="mailto:fetume2127@gmail.com">fetume2127@gmail.com</a>.
+        </div>
+      </div>
+    </footer>
+
+    <!-- Back to top button -->
+    <button id="backToTop" class="back-to-top" aria-label="Back to top">↑</button>
+  </div>
+
+  <script>
+    // Dynamic year in footer
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Back-to-top button behavior
+    const backToTop = document.getElementById('backToTop');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 280) {
+        backToTop.classList.add('visible');
+      } else {
+        backToTop.classList.remove('visible');
+      }
+    });
+    backToTop.addEventListener('click', () => {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
+  </script>
+</body>
+</html>
